@@ -9,7 +9,7 @@ Due to the extensive nature of the API, data is fetched and updated in small tim
 ## Key Features
 - **MVVM Architecture:**
 
-- - **Custom TabBar:** With similar using like native TabBar.
+- **Custom TabBar:** With similar using like native TabBar.
 
 - **Caching:** Using CoreData for caching data, allowing for fast retrieval and seamless updates.
 
