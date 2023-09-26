@@ -7,7 +7,7 @@ This is a SwiftUI-based iOS application that follows the MVVM architectural patt
 Due to the extensive nature of the API, data is fetched and updated in small time intervals, page by page. This ensures that each subsequent launch of the app refreshes the data while seamlessly presenting the user with cached content. Users can interact with the app without noticing the background data update process.
 
 ## Key Features
-- **MVVM Architecture:**
+- **MVVM Architecture**
 
 - **Custom TabBar:** With similar using like native TabBar.
 
