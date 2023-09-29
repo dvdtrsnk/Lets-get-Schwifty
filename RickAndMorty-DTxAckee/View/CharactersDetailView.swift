@@ -88,6 +88,7 @@ struct CharactersDetailView: View {
                 .shadow(color: .black.opacity(0.2), radius: 16)
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarTitleDisplayMode(.inline)
     }
 }
