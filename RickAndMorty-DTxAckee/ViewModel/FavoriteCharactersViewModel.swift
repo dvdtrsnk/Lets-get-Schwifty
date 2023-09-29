@@ -13,7 +13,7 @@ class FavoriteCharactersViewModel: ObservableObject {
         
     //MARK: - Properties
     
-    @Injected var charactersRepository: CharactersRepository
+    @Injected var charactersRepository: CharactersRepositoryProtocol
     @Injected var localDataManager: LocalDataManagerProtocol
     
     private var cancellables: Set<AnyCancellable> = []
@@ -28,7 +28,7 @@ class FavoriteCharactersViewModel: ObservableObject {
     //MARK: - Init
     
     init() {
-        charactersRepository.$characters
+        charactersRepository.charactersPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: \.characters, on: self)
             .store(in: &cancellables)

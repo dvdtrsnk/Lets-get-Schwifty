@@ -7,15 +7,20 @@
 
 import Foundation
 import Resolver
+import Combine
 
-class CharactersRepository: ObservableObject {
+class CharactersRepository: ObservableObject, CharactersRepositoryProtocol {
     
     //MARK: - Properties
 
     @Injected var networkManager: NetworkManagerProtocol
     @Injected var localDataManager: LocalDataManagerProtocol
     
-    @Published var characters: [CharacterLocal] = []
+    private let charactersSubject = CurrentValueSubject<[CharacterLocal], Never>([])
+    
+    var charactersPublisher: AnyPublisher<[CharacterLocal], Never> {
+        return charactersSubject.eraseToAnyPublisher()
+    }
     
     //MARK: - Init
     
@@ -31,7 +36,7 @@ class CharactersRepository: ObservableObject {
             switch result {
             case .success(let loaded):
                 DispatchQueue.main.async {
-                    self.characters = loaded
+                    self.charactersSubject.send(loaded)
                 }
             case .failure(let error):
                 print("Error fetching Characters Local: \(error)")
@@ -40,9 +45,9 @@ class CharactersRepository: ObservableObject {
         }
     }
     
-    //MARK: - Private Method
+    //MARK: - Private, Internal Methods
 
-    private func updaterAllCharactersNetworkToLocal() {
+    internal func updaterAllCharactersNetworkToLocal() {
         
         let delayBetweenPages = 1.5
         
@@ -55,7 +60,7 @@ class CharactersRepository: ObservableObject {
                 case .success(let response):
                     
                     for character in response.results {
-                        self.localDataManager.updateOrCreateLocalCharacterUsing(characterNetwork: character, charactersLocal: self.characters)
+                        self.localDataManager.updateOrCreateLocalCharacterUsing(characterNetwork: character, charactersLocal: self.charactersSubject.value)
                     }
                     self.printUpdateStatus(currentPage, outOf: response.info.pages)
                     

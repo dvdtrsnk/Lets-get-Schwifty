@@ -29,6 +29,7 @@
 		630DE6512ABD9880009EA6F3 /* String+SlashIfEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630DE6502ABD9880009EA6F3 /* String+SlashIfEmpty.swift */; };
 		631D04FA2AC6A4A7006B6BAF /* LocalDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631D04F92AC6A4A7006B6BAF /* LocalDataManagerProtocol.swift */; };
 		631D05002AC6B18E006B6BAF /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631D04FF2AC6B18E006B6BAF /* NetworkManagerProtocol.swift */; };
+		631D05022AC6B5BB006B6BAF /* CharactersRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631D05012AC6B5BB006B6BAF /* CharactersRepositoryProtocol.swift */; };
 		633F7FFF2ABF3C2D006026DC /* FavoriteCharactersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633F7FFE2ABF3C2D006026DC /* FavoriteCharactersViewModel.swift */; };
 		633F80022ABF3D4C006026DC /* RickAndMorty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 633F80002ABF3D4C006026DC /* RickAndMorty.xcdatamodeld */; };
 		633F80132ABF4145006026DC /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633F80122ABF4145006026DC /* LocalDataManager.swift */; };
@@ -70,6 +71,7 @@
 		630DE6502ABD9880009EA6F3 /* String+SlashIfEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SlashIfEmpty.swift"; sourceTree = "<group>"; };
 		631D04F92AC6A4A7006B6BAF /* LocalDataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManagerProtocol.swift; sourceTree = "<group>"; };
 		631D04FF2AC6B18E006B6BAF /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
+		631D05012AC6B5BB006B6BAF /* CharactersRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersRepositoryProtocol.swift; sourceTree = "<group>"; };
 		633F7FFE2ABF3C2D006026DC /* FavoriteCharactersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCharactersViewModel.swift; sourceTree = "<group>"; };
 		633F80012ABF3D4C006026DC /* RickAndMorty.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RickAndMorty.xcdatamodel; sourceTree = "<group>"; };
 		633F80122ABF4145006026DC /* LocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				633F802E2AC18474006026DC /* CharactersRepository.swift */,
+				631D05012AC6B5BB006B6BAF /* CharactersRepositoryProtocol.swift */,
 				633F80032ABF3DFC006026DC /* Local (FavoriteCharacters) */,
 				630DE6322ABD5DD8009EA6F3 /* Network (All Characters) */,
 			);
@@ -323,6 +326,7 @@
 				630DE62F2ABCE54F009EA6F3 /* Color+CustomColors.swift in Sources */,
 				633F80132ABF4145006026DC /* LocalDataManager.swift in Sources */,
 				630DE64F2ABD97E8009EA6F3 /* CharactersViewModel.swift in Sources */,
+				631D05022AC6B5BB006B6BAF /* CharactersRepositoryProtocol.swift in Sources */,
 				630DE6512ABD9880009EA6F3 /* String+SlashIfEmpty.swift in Sources */,
 				630DE6312ABD5DD4009EA6F3 /* NetworkManager.swift in Sources */,
 				631D04FA2AC6A4A7006B6BAF /* LocalDataManagerProtocol.swift in Sources */,

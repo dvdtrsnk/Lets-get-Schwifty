@@ -13,7 +13,7 @@ class CharactersViewModel: ObservableObject {
     
     //MARK: - Properties
     
-    @Injected var charactersRepository: CharactersRepository
+    @Injected var charactersRepository: CharactersRepositoryProtocol
     private var cancellables: Set<AnyCancellable> = []
 
     var characters: [CharacterLocal] = [] {
@@ -31,7 +31,7 @@ class CharactersViewModel: ObservableObject {
     //MARK: - Init
     
     init() {
-        charactersRepository.$characters
+        charactersRepository.charactersPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: \.characters, on: self)
             .store(in: &cancellables)

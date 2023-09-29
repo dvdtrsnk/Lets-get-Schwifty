@@ -15,7 +15,7 @@ extension Resolver: ResolverRegistering {
         // MARK: - Data
         register { NetworkManager() }.implements(NetworkManagerProtocol.self)
         register { LocalDataManager() }.implements(LocalDataManagerProtocol.self)
-        register { CharactersRepository() }
+        register { CharactersRepository() }.implements(CharactersRepositoryProtocol.self)
             .scope(.application)
         
         // MARK: - ViewModels
