@@ -13,6 +13,7 @@ extension Resolver: ResolverRegistering {
         defaultScope = .graph
         
         // MARK: - Data
+        register { NetworkService() }.implements(NetworkServiceProtocol.self)
         register { NetworkManager() }.implements(NetworkManagerProtocol.self)
         register { LocalDataManager() }.implements(LocalDataManagerProtocol.self)
         register { CharactersRepository() }.implements(CharactersRepositoryProtocol.self)
@@ -32,5 +33,3 @@ extension Resolver: ResolverRegistering {
         
     }
 }
-
-
