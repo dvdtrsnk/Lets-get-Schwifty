@@ -14,7 +14,7 @@ class FavoriteCharactersViewModel: ObservableObject {
     //MARK: - Properties
     
     @Injected var charactersRepository: CharactersRepository
-    @Injected var localDataManager: LocalDataManager
+    @Injected var localDataManager: LocalDataManagerProtocol
     
     private var cancellables: Set<AnyCancellable> = []
 

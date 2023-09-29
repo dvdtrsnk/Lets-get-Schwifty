@@ -13,7 +13,7 @@ class CharactersRepository: ObservableObject {
     //MARK: - Properties
 
     @Injected var networkManager: NetworkManager
-    @Injected var localDataManager: LocalDataManager
+    @Injected var localDataManager: LocalDataManagerProtocol
     
     @Published var characters: [CharacterLocal] = []
     
