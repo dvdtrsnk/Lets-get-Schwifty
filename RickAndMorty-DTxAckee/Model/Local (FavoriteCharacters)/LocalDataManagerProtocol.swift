@@ -2,7 +2,7 @@
 //  LocalDataManagerProtocol.swift
 //  RickAndMorty-DTxAckee
 //
-//  Created by David Třešňák on 29.09.2023.
+//  Created by David Tresnak
 //
 
 import Foundation
