@@ -12,8 +12,8 @@ class CharactersDetailViewModel: ObservableObject {
     
     
     // MARK: - Properties
-    @Injected var localDataManager: LocalDataManager
-    @Injected var charactersRepository: CharactersRepository
+    @Injected var localDataManager: LocalDataManagerProtocol
+    @Injected var charactersRepository: CharactersRepositoryProtocol
     @Published var character: CharacterLocal
     @Published var isFavorite: Bool
     

@@ -8,7 +8,7 @@
 import Foundation
 
 
-class NetworkManager {
+class NetworkManager: NetworkManagerProtocol {
     
     //MARK: - Properties
     

@@ -42,7 +42,7 @@ struct FavoriteCharactersView: View {
                             CharacterCardView(for: character)
                                 .id(character.isFavorite)
                         }
-                        .padding(.bottom, 8)
+                        .padding(8)
                     }
                 }
             }

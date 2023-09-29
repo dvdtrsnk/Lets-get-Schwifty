@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class LocalDataManager {
+class LocalDataManager: LocalDataManagerProtocol {
     
     //MARK: - Properties
     let container = NSPersistentContainer(name: "RickAndMorty")

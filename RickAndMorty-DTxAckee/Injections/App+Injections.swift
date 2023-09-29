@@ -13,9 +13,9 @@ extension Resolver: ResolverRegistering {
         defaultScope = .graph
         
         // MARK: - Data
-        register { NetworkManager() }
-        register { LocalDataManager() }
-        register { CharactersRepository() }
+        register { NetworkManager() }.implements(NetworkManagerProtocol.self)
+        register { LocalDataManager() }.implements(LocalDataManagerProtocol.self)
+        register { CharactersRepository() }.implements(CharactersRepositoryProtocol.self)
             .scope(.application)
         
         // MARK: - ViewModels
