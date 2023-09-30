@@ -6,41 +6,32 @@
 //
 
 import Foundation
+import Resolver
 import CoreData
 
-class LocalDataManager: LocalDataManagerProtocol {
+class CharacterLocalDataManager: CharacterLocalManagerProtocol {
     
     //MARK: - Properties
-    let container = NSPersistentContainer(name: "RickAndMorty")
+    
+    @Injected var dataController: DataControllerProtocol
 
-    //MARK: - Init
-    
-    init() {
-        container.loadPersistentStores { description, error in
-            if let error = error {
-                print("Core Data failed to load: \(error.localizedDescription)")
-            }
-        }
-    }
-    
     //MARK: - Public Methods
-    
     
     func fetchCharacters(completion: @escaping (Result<[CharacterLocal], LocalDataErrors>) -> Void) {
         let request = NSFetchRequest<CharacterLocal>(entityName: "CharacterLocal")
         let sortDescriptor = NSSortDescriptor(key: "id", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         do {
-            let characters = try container.viewContext.fetch(request)
+            let characters = try dataController.moc.fetch(request)
             completion(.success(characters))
         } catch {
             completion(.failure(.fetchError))
         }
     }
     
-    func updateOrCreateLocalCharacterUsing(characterNetwork: CharacterNetwork, charactersLocal: [CharacterLocal]) {    
+    func updateOrCreateLocalCharacterUsing(characterNetwork: CharacterNetwork, charactersLocal: [CharacterLocal]) {
+                
         let localCharacter = loadOrCreate(characterNetwork, in: charactersLocal)
-        
         localCharacter.id = characterNetwork.id
         localCharacter.name = characterNetwork.name
         localCharacter.status = characterNetwork.status
@@ -56,9 +47,9 @@ class LocalDataManager: LocalDataManagerProtocol {
     }
     
     func saveContext() {
-        if container.viewContext.hasChanges {
+        if dataController.moc.hasChanges {
             do {
-                try container.viewContext.save()
+                try dataController.moc.save()
             } catch {
                 print("Error saving data")
             }
@@ -71,8 +62,7 @@ class LocalDataManager: LocalDataManagerProtocol {
         if let existingLocalCharacter = charactersLocal.first(where: { $0.id == character.id }) {
             return existingLocalCharacter
         } else {
-            return CharacterLocal(context: container.viewContext)
+            return CharacterLocal(context: dataController.moc)
         }
     }
-    
 }

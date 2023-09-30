@@ -8,7 +8,7 @@
 import Foundation
 import Resolver
 
-class NetworkManager: NetworkManagerProtocol {
+class CharacterNetworkManager: CharacterNetworkManagerProtocol {
     
     //MARK: - Properties
     
@@ -24,6 +24,7 @@ class NetworkManager: NetworkManagerProtocol {
         }
         
         networkService.fetchData(with: URLRequest(url: url)) { response in
+            DispatchQueue.main.async {
             switch response {
             case .success(let data):
                 print("success")
@@ -33,9 +34,8 @@ class NetworkManager: NetworkManagerProtocol {
                     completion(.failure(.decodingError))
                 }
             case .failure(let error):
-                DispatchQueue.main.async {
-                    completion(.failure(error))
-                }
+                completion(.failure(error))
+            }
             }
         }
     }

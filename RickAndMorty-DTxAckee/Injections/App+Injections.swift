@@ -14,8 +14,9 @@ extension Resolver: ResolverRegistering {
         
         // MARK: - Data
         register { NetworkService() }.implements(NetworkServiceProtocol.self)
-        register { NetworkManager() }.implements(NetworkManagerProtocol.self)
-        register { LocalDataManager() }.implements(LocalDataManagerProtocol.self)
+        register { CharacterNetworkManager() }.implements(CharacterNetworkManagerProtocol.self)
+        register { DataController() }.implements(DataControllerProtocol.self)
+        register { CharacterLocalDataManager() }.implements(CharacterLocalManagerProtocol.self)
         register { CharactersRepository() }.implements(CharactersRepositoryProtocol.self)
             .scope(.application)
         

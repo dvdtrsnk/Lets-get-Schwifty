@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol NetworkManagerProtocol {
+protocol CharacterNetworkManagerProtocol {
     func fetchCharactersPage(_ number: Int, completion: @escaping (Result<CharacterFetchModel, NetworkFetchErrors>) -> ())
 }

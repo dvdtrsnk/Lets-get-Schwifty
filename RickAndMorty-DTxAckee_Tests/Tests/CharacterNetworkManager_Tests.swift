@@ -2,18 +2,18 @@
 //  NetworkManager_Tests.swift
 //  RickAndMorty-DTxAckee_Tests
 //
-//  Created by David Třešňák on 29.09.2023.
+//  Created by David Tresnak
 //
 
 import XCTest
 import Resolver
 @testable import RickAndMorty_DTxAckee
 
-final class NetworkManager_Tests: XCTestCase {
+final class CharacterNetworkManager_Tests: XCTestCase {
     
     // MARK: - Properties
     @LazyInjected var networkService: MockNetworkService
-    var sut: NetworkManager?
+    var sut: CharacterNetworkManager?
     let correctUrl = "https://rickandmortyapi.com/api/character"
     
     
@@ -21,9 +21,7 @@ final class NetworkManager_Tests: XCTestCase {
     override func setUp() {
         super.setUp()
         Resolver.registerMockServices()
-
-        sut = NetworkManager()
-    
+        sut = CharacterNetworkManager()
     }
     
     override func tearDown() {
@@ -35,7 +33,7 @@ final class NetworkManager_Tests: XCTestCase {
     
     // MARK: - Unit tests
     
-    func test_NetworkManager_BaseURL_IsCorrect() {        
+    func test_CharacterNetworkManager_BaseURL_IsCorrect() {
         // Given
         let correctBaseUrl = "https://rickandmortyapi.com/api/character"
         
@@ -43,22 +41,19 @@ final class NetworkManager_Tests: XCTestCase {
         let setUrl = sut?.baseURL
         
         // Then
-        XCTAssertEqual(correctBaseUrl, setUrl)
+        XCTAssertEqual(correctBaseUrl, setUrl) // Checks if SUT is using correct api url
     }
     
-    
-    
-    
-    func test_NetworkManager_FetchCharactersPage_Success() {
+    func test_CharacterNetworkManager_FetchCharactersPage_Success() {
         // Given
         let data = returnMockData()
         networkService.result = .success(data)
-
+        
         var loadedData: CharacterFetchModel?
         var loadedError: RickAndMorty_DTxAckee.NetworkFetchErrors?
-
+        
         // When
-
+        
         sut?.fetchCharactersPage(1) { result in
             switch result {
             case .success(let data):
@@ -66,17 +61,17 @@ final class NetworkManager_Tests: XCTestCase {
             case .failure(let error):
                 loadedError = error
             }
-
+            
             // Then
-            XCTAssertNil(loadedError)
+            XCTAssertNil(loadedError) // Checks if inserted completion goes through
             XCTAssertNotNil(loadedData)
             
             guard let loadedData = loadedData else { return }
-            XCTAssertEqual(loadedData.results.count, 1)
+            XCTAssertEqual(loadedData.results.count, 1) // Checks if data Decode to CharacterLocal
         }
     }
     
-    func test_NetworkManager_FetchCharactersPage_Failure() {
+    func test_CharacterNetworkManager_FetchCharactersPage_Failure() {
         // Given
         let networkError = RickAndMorty_DTxAckee.NetworkFetchErrors.responseError
         networkService.result = .failure(networkError)
@@ -94,16 +89,18 @@ final class NetworkManager_Tests: XCTestCase {
                 loadedError = error
             }
             
-
+            
             // Then
             XCTAssertNil(loadedData)
-            XCTAssertEqual(networkError, loadedError)
+            XCTAssertEqual(networkError, loadedError) // Checks if inserted error goes through if failure
         }
     }
-    
-    // MARK: - Helper Functions
-    
-    
+}
+
+
+// MARK: - Helper Functions
+
+extension CharacterNetworkManager_Tests {
     
     private func mockCharacter() -> [CharacterNetwork] {
    [CharacterNetwork(id: 1, name: "", status: "", species: "", type: "", gender: "", origin: OriginOrLocation(name: "", url: ""), location: OriginOrLocation(name: "", url: ""), image: "", url: "", created: "")]
@@ -114,4 +111,5 @@ final class NetworkManager_Tests: XCTestCase {
     let test = try? JSONEncoder().encode(CharacterFetchModel(info: Info(count: 800, pages: 40), results: asset))
     return test ?? Data()
   }
+    
 }

@@ -9,12 +9,12 @@ import Foundation
 import Resolver
 import Combine
 
-class CharactersRepository: ObservableObject, CharactersRepositoryProtocol {
+class CharactersRepository: CharactersRepositoryProtocol {
     
     //MARK: - Properties
 
-    @Injected var networkManager: NetworkManagerProtocol
-    @Injected var localDataManager: LocalDataManagerProtocol
+    @Injected var networkManager: CharacterNetworkManagerProtocol
+    @Injected var localDataManager: CharacterLocalManagerProtocol
     
     private let charactersSubject = CurrentValueSubject<[CharacterLocal], Never>([])
     
@@ -26,7 +26,7 @@ class CharactersRepository: ObservableObject, CharactersRepositoryProtocol {
     
     init() {
         fetchAllCharactersLocal()
-        updaterAllCharactersNetworkToLocal()
+        updateAllCharactersNetworkToLocal()
     }
         
     //MARK: - Public Methods
@@ -47,7 +47,7 @@ class CharactersRepository: ObservableObject, CharactersRepositoryProtocol {
     
     //MARK: - Private, Internal Methods
 
-    internal func updaterAllCharactersNetworkToLocal() {
+    internal func updateAllCharactersNetworkToLocal() {
         
         let delayBetweenPages = 1.5
         

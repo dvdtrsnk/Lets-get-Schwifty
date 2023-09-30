@@ -2,7 +2,7 @@
 //  CharactersRepositoryProtocol.swift
 //  RickAndMorty-DTxAckee
 //
-//  Created by David Třešňák on 29.09.2023.
+//  Created by David Tresnak
 //
 
 import Foundation
@@ -13,5 +13,5 @@ protocol CharactersRepositoryProtocol {
     var charactersPublisher: AnyPublisher<[CharacterLocal], Never> { get }
     
     func fetchAllCharactersLocal()
-    func updaterAllCharactersNetworkToLocal()
+    func updateAllCharactersNetworkToLocal()
 }
