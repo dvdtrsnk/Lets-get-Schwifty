@@ -6,30 +6,119 @@
 //
 
 import XCTest
+import Resolver
+@testable import RickAndMorty_DTxAckee
 
 final class FavoriteCharactersViewModel_Test: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    @LazyInjected var charactersRepository: MockCharactersRepository
+    @LazyInjected var dataController: MockDataController
+    
+    var sut: FavoriteCharactersViewModel?
+    
+    // MARK: - Life Cycle
+    
+    override func setUp() {
+        super.setUp()
+        
+        Resolver.registerMockServices()
+        sut = FavoriteCharactersViewModel()
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    override func tearDown() {
+        sut = nil
+        Resolver.root = .main
+        super.tearDown()
     }
+    
+    // MARK: - Unit Tests
+    
+    func test_FavoriteCharactersViewModel_ShouldRecieveCharactersFromCharactersRepository() {
+        let expectation = XCTestExpectation(description: "Recieve form CharactersRepository")
+        guard let sut = sut else { fatalError("sut nil") }
+        
+        // Given
+        let ricksAmount = Int.random(in: 10...30)
+        let mortysAmount = Int.random(in: 10...30)
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+        
+        // When
+        charactersRepository.characters = mockCharacterLocalArray(ricksAmount, mortysAmount)
+
+        
+        // Then
+        DispatchQueue.global().asyncAfter(deadline: .now() + 2.0) {
+            
+            XCTAssertEqual(sut.characters.count, ricksAmount+mortysAmount)
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
     }
+    
+    func test_FavoriteCharactersViewModel_ShouldFilterFavoriteCharacters() {
+        let expectation = XCTestExpectation(description: "Filter Favorite Characters")
+        guard let sut = sut else { fatalError("sut nil") }
+        
+        // Given
+        let favoriteCharacters = Int.random(in: 5...20)
+        let ricksAmount = Int.random(in: 10...30)
+        let mortysAmount = Int.random(in: 10...30)
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        // When
+        charactersRepository.characters = mockCharacterLocalArray(ricksAmount, mortysAmount)
+        markCharactersFavorite(amount: favoriteCharacters)
+
+        
+        // Then
+        DispatchQueue.global().asyncAfter(deadline: .now() + 2.0) {
+            
+            XCTAssertEqual(sut.favoriteCharacters.count, favoriteCharacters)
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
+    }
+    
+}
+
+// MARK: - Helper Private Methods
+
+extension FavoriteCharactersViewModel_Test {
+    
+    private func markCharactersFavorite(amount: Int) {
+        let charactersCount = charactersRepository.characters.count
+        let numberOfFavoritesToSet = min(amount, charactersCount)
+        
+        for index in 0..<numberOfFavoritesToSet {
+            charactersRepository.characters[index].isFavorite = true
         }
     }
 
+    
+    private func mockCharacterLocalArray(_ ricksAmount: Int,_  mortysAmount: Int) -> [CharacterLocal] {
+        var arrayOfCharacters: [CharacterLocal] = []
+        
+        for _ in 1...ricksAmount {
+            arrayOfCharacters.append(mockCharacterLocal(name: "Rick"))
+        }
+        
+        for _ in 1...mortysAmount {
+            arrayOfCharacters.append(mockCharacterLocal(name: "Morty"))
+        }
+        
+        return arrayOfCharacters
+        
+    }
+    
+    private func mockCharacterLocal(name: String) -> CharacterLocal {
+        let character = CharacterLocal(context: dataController.moc)
+        character.id = Int16.random(in: 1...9999)
+        character.name = name
+        
+        return character
+    }
+    
 }

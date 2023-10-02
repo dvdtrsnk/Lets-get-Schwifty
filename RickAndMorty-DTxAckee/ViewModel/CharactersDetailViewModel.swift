@@ -27,8 +27,11 @@ class CharactersDetailViewModel: ObservableObject {
     // MARK: - Public Methods
     
     func switchIsFavorite() async {
+        DispatchQueue.main.async {
+            self.isFavorite = self.character.isFavorite
+        }
+        
         character.isFavorite = !character.isFavorite
-        isFavorite = character.isFavorite
         localDataManager.saveContext()
         
         
