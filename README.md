@@ -1,7 +1,7 @@
 # Lets-get-Schwifty
 
 ## Overview
-This is a SwiftUI-based iOS application that follows the MVVM architectural pattern. It retrieves data from APIs using completion functions in the NetworkManager and stores it in CoreData using the LocalDataManager in the CharacterRepository.
+This is a SwiftUI-based iOS application that follows the MVVM architectural pattern. It retrieves data from APIs using async functions in the CharactersRepository (via NetworkManager) and stores it in CoreData using the LocalDataManager.
 
 ## Background
 Due to the extensive nature of the API, data is fetched and updated in small time intervals, page by page. This ensures that each subsequent launch of the app refreshes the data while seamlessly presenting the user with cached content. Users can interact with the app without noticing the background data update process.
@@ -26,7 +26,7 @@ Due to the extensive nature of the API, data is fetched and updated in small tim
 - ["SwiftUI Cached async image"](https://github.com/lorenzofiamingo/swiftui-cached-async-image): A utility for cached image loading in SwiftUI.
 
 
-## Graph of Function 
+## Architectural Structure (MVVM) 
 
 ![Graphviz](https://github.com/dvdtrsnk/Lets-get-Schwifty/blob/main/graphviz.png)
 
