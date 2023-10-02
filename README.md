@@ -13,9 +13,12 @@ Due to the extensive nature of the API, data is fetched and updated in small tim
 
 - **Caching:** Using CoreData for caching data, allowing for fast retrieval and seamless updates.
 
+- **Image Optimization:** To reduce downloaded data volume, the app makes use of "SwiftUI Cached async image" for efficient image loading.
+
 - **Dependency Injection:** Dependency injection is handled using the Resolver library, ensuring modularity and testability.
 
-- **Image Optimization:** To reduce downloaded data volume, the app makes use of "SwiftUI Cached async image" for efficient image loading.
+- **Unit Tests:** Unit tests that are using Mock Objects injected via Resolver and Protocols (Dependency Inversion Principle.
+
 
 ## Dependencies
 - [Resolver](https://github.com/hmlongco/Resolver): Dependency injection library used to manage dependencies.
