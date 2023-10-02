@@ -36,6 +36,8 @@ final class CharacterLocalDataManager_Tests: XCTestCase {
     
     func test_CharacterLocalDataManager_fetchCharacters_ShouldFetchAndSort() {
         // Given
+        let createAmountOfCharacters: Int = 10
+
         for n in 1...10 {
             sut?.updateOrCreateLocalCharacterUsing(characterNetwork: mockCharacterNetwork(inputId: n, randomString: UUID().uuidString), charactersLocal: characters)
             fetchCharacters()
@@ -45,7 +47,7 @@ final class CharacterLocalDataManager_Tests: XCTestCase {
         fetchCharacters()
 
         // Then
-        XCTAssertEqual(characters.count, 10)
+        XCTAssertEqual(characters.count, createAmountOfCharacters)
         let sortedByID = characters.sorted(by: { $0.id < $1.id }) // Check if sorted by ID
         XCTAssertEqual(characters, sortedByID)
     }

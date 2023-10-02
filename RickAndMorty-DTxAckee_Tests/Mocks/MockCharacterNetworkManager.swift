@@ -8,13 +8,18 @@
 import Foundation
 @testable import RickAndMorty_DTxAckee
 
-class MockCharacterNetwork: CharacterNetworkManagerProtocol {
+class MockCharacterNetworkManager: CharacterNetworkManagerProtocol {
     
-    var result: Result<Data, RickAndMorty_DTxAckee.NetworkFetchErrors>?
+    // MARK: - Properties
+
+    var result: Result<RickAndMorty_DTxAckee.CharacterFetchModel, RickAndMorty_DTxAckee.NetworkFetchErrors>?
+    
+    // MARK: - Public Method
     
     func fetchCharactersPage(_ number: Int, completion: @escaping (Result<RickAndMorty_DTxAckee.CharacterFetchModel, RickAndMorty_DTxAckee.NetworkFetchErrors>) -> ()) {
         
+        guard let result = result else { fatalError("Result is nil") }
+        
+        return completion(result)
     }
-    
-    
 }

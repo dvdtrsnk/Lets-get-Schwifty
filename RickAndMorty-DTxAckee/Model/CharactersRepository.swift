@@ -14,29 +14,27 @@ class CharactersRepository: CharactersRepositoryProtocol {
     //MARK: - Properties
 
     @Injected var networkManager: CharacterNetworkManagerProtocol
-    @Injected var localDataManager: CharacterLocalManagerProtocol
+    @Injected var localManager: CharacterLocalManagerProtocol
     
     private let charactersSubject = CurrentValueSubject<[CharacterLocal], Never>([])
-    
     var charactersPublisher: AnyPublisher<[CharacterLocal], Never> {
         return charactersSubject.eraseToAnyPublisher()
     }
     
-    //MARK: - Init
-    
-    init() {
-        fetchAllCharactersLocal()
-        updateAllCharactersNetworkToLocal()
+    var characters: [CharacterLocal] = [] {
+        didSet {
+            charactersSubject.send(characters)
+        }
     }
         
     //MARK: - Public Methods
 
      func fetchAllCharactersLocal() {
-        localDataManager.fetchCharacters { result in
+        localManager.fetchCharacters { result in
             switch result {
             case .success(let loaded):
                 DispatchQueue.main.async {
-                    self.charactersSubject.send(loaded)
+                    self.characters = loaded
                 }
             case .failure(let error):
                 print("Error fetching Characters Local: \(error)")
@@ -44,10 +42,10 @@ class CharactersRepository: CharactersRepositoryProtocol {
             }
         }
     }
-    
-    //MARK: - Private, Internal Methods
 
-    internal func updateAllCharactersNetworkToLocal() {
+    func updateAllCharactersNetworkToLocal() {
+        fetchAllCharactersLocal()
+        
         
         let delayBetweenPages = 1.5
         
@@ -60,7 +58,7 @@ class CharactersRepository: CharactersRepositoryProtocol {
                 case .success(let response):
                     
                     for character in response.results {
-                        self.localDataManager.updateOrCreateLocalCharacterUsing(characterNetwork: character, charactersLocal: self.charactersSubject.value)
+                        self.localManager.updateOrCreateLocalCharacterUsing(characterNetwork: character, charactersLocal: self.charactersSubject.value)
                     }
                     self.printUpdateStatus(currentPage, outOf: response.info.pages)
                     
@@ -81,6 +79,8 @@ class CharactersRepository: CharactersRepositoryProtocol {
         
         fetchNextPage()
     }
+    
+    // MARK: - Private Methods 
     
     private func printUpdateStatus(_ currentPage: Int, outOf: Int) {
         if currentPage <= outOf {

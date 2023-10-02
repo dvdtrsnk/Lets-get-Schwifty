@@ -42,6 +42,7 @@
 		631D054C2AC840FD006B6BAF /* MockCharactersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631D054B2AC840FD006B6BAF /* MockCharactersRepository.swift */; };
 		631D05502AC84D91006B6BAF /* MockCharacterNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631D054F2AC84D91006B6BAF /* MockCharacterNetworkManager.swift */; };
 		631D05522AC84DA4006B6BAF /* MockCharacterLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631D05512AC84DA4006B6BAF /* MockCharacterLocalManager.swift */; };
+		631D05542AC857D8006B6BAF /* CharactersRepository_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631D05532AC857D8006B6BAF /* CharactersRepository_Tests.swift */; };
 		633F7FFF2ABF3C2D006026DC /* FavoriteCharactersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633F7FFE2ABF3C2D006026DC /* FavoriteCharactersViewModel.swift */; };
 		633F80022ABF3D4C006026DC /* RickAndMorty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 633F80002ABF3D4C006026DC /* RickAndMorty.xcdatamodeld */; };
 		633F80132ABF4145006026DC /* CharacterLocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633F80122ABF4145006026DC /* CharacterLocalDataManager.swift */; };
@@ -107,6 +108,7 @@
 		631D054B2AC840FD006B6BAF /* MockCharactersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCharactersRepository.swift; sourceTree = "<group>"; };
 		631D054F2AC84D91006B6BAF /* MockCharacterNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCharacterNetworkManager.swift; sourceTree = "<group>"; };
 		631D05512AC84DA4006B6BAF /* MockCharacterLocalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCharacterLocalManager.swift; sourceTree = "<group>"; };
+		631D05532AC857D8006B6BAF /* CharactersRepository_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersRepository_Tests.swift; sourceTree = "<group>"; };
 		633F7FFE2ABF3C2D006026DC /* FavoriteCharactersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCharactersViewModel.swift; sourceTree = "<group>"; };
 		633F80012ABF3D4C006026DC /* RickAndMorty.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RickAndMorty.xcdatamodel; sourceTree = "<group>"; };
 		633F80122ABF4145006026DC /* CharacterLocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterLocalDataManager.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 			children = (
 				631D053E2AC6DFC5006B6BAF /* CharacterNetworkManager_Tests.swift */,
 				631D05432AC81E11006B6BAF /* CharacterLocalDataManager_Tests.swift */,
+				631D05532AC857D8006B6BAF /* CharactersRepository_Tests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				631D054C2AC840FD006B6BAF /* MockCharactersRepository.swift in Sources */,
 				631D05502AC84D91006B6BAF /* MockCharacterNetworkManager.swift in Sources */,
 				631D053A2AC6DEC0006B6BAF /* MockNetworkService.swift in Sources */,
+				631D05542AC857D8006B6BAF /* CharactersRepository_Tests.swift in Sources */,
 				631D05372AC6DE76006B6BAF /* Resolver+XCTest.swift in Sources */,
 				631D05442AC81E11006B6BAF /* CharacterLocalDataManager_Tests.swift in Sources */,
 				631D054A2AC821F1006B6BAF /* MockDataController.swift in Sources */,

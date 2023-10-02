@@ -46,6 +46,7 @@ final class CharacterNetworkManager_Tests: XCTestCase {
     
     func test_CharacterNetworkManager_FetchCharactersPage_Success() {
         // Given
+        let expectation = XCTestExpectation(description: "Call a network async")
         let data = returnMockData()
         networkService.result = .success(data)
         
@@ -57,6 +58,7 @@ final class CharacterNetworkManager_Tests: XCTestCase {
         sut?.fetchCharactersPage(1) { result in
             switch result {
             case .success(let data):
+                expectation.fulfill()
                 loadedData = data
             case .failure(let error):
                 loadedError = error
@@ -69,10 +71,14 @@ final class CharacterNetworkManager_Tests: XCTestCase {
             guard let loadedData = loadedData else { return }
             XCTAssertEqual(loadedData.results.count, 1) // Checks if data Decode to CharacterLocal
         }
+        
+        wait(for: [expectation], timeout: 5.0)
     }
     
     func test_CharacterNetworkManager_FetchCharactersPage_Failure() {
         // Given
+        let expectation = XCTestExpectation(description: "Call a network async")
+
         let networkError = RickAndMorty_DTxAckee.NetworkFetchErrors.responseError
         networkService.result = .failure(networkError)
         
@@ -86,14 +92,17 @@ final class CharacterNetworkManager_Tests: XCTestCase {
             case .success(let data):
                 loadedData = data
             case .failure(let error):
+                expectation.fulfill()
                 loadedError = error
             }
             
             
             // Then
             XCTAssertNil(loadedData)
-            XCTAssertEqual(networkError, loadedError) // Checks if inserted error goes through if failure
+            XCTAssertEqual(networkError, loadedError) // Checks if inserted error goes through in case of failure
         }
+        
+        wait(for: [expectation], timeout: 5.0)
     }
 }
 
