@@ -19,7 +19,7 @@ extension Resolver {
         defaultScope = .application
         Resolver.mock.register { MockNetworkService() }.implements(NetworkServiceProtocol.self)
         Resolver.mock.register { MockDataController() }.implements(DataControllerProtocol.self)
-//        Resolver.mock.register { MockCharactersRepository() }.implements(CharactersRepositoryProtocol.self)
+        Resolver.mock.register { MockCharactersRepository() }.implements(CharactersRepositoryProtocol.self)
         Resolver.mock.register { MockCharacterLocalManager() }.implements(CharacterLocalManagerProtocol.self)
         Resolver.mock.register { MockCharacterNetworkManager() }.implements(CharacterNetworkManagerProtocol.self)
 

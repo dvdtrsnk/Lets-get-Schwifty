@@ -38,7 +38,7 @@ final class CharactersRepository_Tests: XCTestCase {
         guard let sut = sut else { fatalError() }
 
         // Given
-        let amountOfTestSubjects = 10
+        let amountOfTestSubjects = Int.random(in: 1...20)
         let testCharacters = mockArrayCharactersLocal(amountOfTestSubjects)
         localManager.result = .success(testCharacters)
 
@@ -49,13 +49,39 @@ final class CharactersRepository_Tests: XCTestCase {
         XCTAssertEqual(amountOfTestSubjects, sut.characters.count)
     }
     
-    
-    
+    func test_CharactersRepository_updateAllCharactersNetworkToLocal_ShouldPopulateCharacters() async {
+        guard let sut = sut else { fatalError() }
+
+        // Given
+        let amountOfTestSubjects = 20
+        let charactersPage = mockCharacterPage(charactersOnPage: amountOfTestSubjects)
+        networkManager.result = .success(charactersPage)
+        localManager.result = .success(mockArrayCharactersLocal(amountOfTestSubjects))
+        
+        // When
+        await sut.updateAllCharactersNetworkToLocal()
+        
+        // Then
+        XCTAssertEqual(sut.characters.count, amountOfTestSubjects)
+    }
 }
 
 // MARK: - Helper Private Methods
 
 extension CharactersRepository_Tests {
+    
+    private func mockCharacterPage(charactersOnPage: Int) -> CharacterFetchModel {
+        return CharacterFetchModel(info: Info(count: 800, pages: 1), results: mockCharactersNetworkArray(amount: charactersOnPage))
+    }
+    
+    private func mockCharactersNetworkArray(amount: Int) -> [CharacterNetwork] {
+        var arrayToReturn: [CharacterNetwork] = []
+         
+        for _ in 1...amount {
+            arrayToReturn.append(contentsOf: [CharacterNetwork(id: Int16.random(in: 1...9999), name: "", status: "", species: "", type: "", gender: "", origin: OriginOrLocation(name: "", url: ""), location: OriginOrLocation(name: "", url: ""), image: "", url: "", created: "")])
+        }
+        return arrayToReturn
+    }
     
     private func mockCharacterLocal() -> CharacterLocal {
         let character =  CharacterLocal(context: dataController.moc)
