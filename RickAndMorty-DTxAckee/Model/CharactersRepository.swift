@@ -29,57 +29,40 @@ class CharactersRepository: CharactersRepositoryProtocol {
         
     //MARK: - Public Methods
 
-     func fetchAllCharactersLocal() {
-        localManager.fetchCharacters { result in
-            switch result {
-            case .success(let loaded):
-                DispatchQueue.main.async {
-                    self.characters = loaded
+    func fetchAllCharactersLocal() {
+        do {
+            characters = try localManager.fetchCharacters()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func updateAllCharactersNetworkToLocal() async {
+        let delayBetweenPages = 1.5
+        var currentPage = 1
+        var pages = 2
+        
+        fetchAllCharactersLocal()
+        while currentPage <= pages {
+
+            do {
+                let page = try await networkManager.fetchCharactersPage(currentPage)
+                pages =  page.info.pages
+                for character in page.results {
+                    self.localManager.updateOrCreateLocalCharacterUsing(characterNetwork: character, charactersLocal: self.charactersSubject.value)
                 }
-            case .failure(let error):
-                print("Error fetching Characters Local: \(error)")
+    
+                fetchAllCharactersLocal()
+                self.printUpdateStatus(currentPage, outOf: pages)
+                currentPage += 1
+                try await Task.sleep(nanoseconds: UInt64(delayBetweenPages * 1000_000_000))
                 
+            } catch {
+                print("Failed to fetch characters page \(currentPage): \(error)")
             }
         }
     }
 
-    func updateAllCharactersNetworkToLocal() {
-        fetchAllCharactersLocal()
-        
-        
-        let delayBetweenPages = 1.5
-        
-        var currentPage = 1
-        var pages = 1
-        
-        func fetchNextPage() {
-            networkManager.fetchCharactersPage(currentPage) { result in
-                switch result {
-                case .success(let response):
-                    
-                    for character in response.results {
-                        self.localManager.updateOrCreateLocalCharacterUsing(characterNetwork: character, charactersLocal: self.charactersSubject.value)
-                    }
-                    self.printUpdateStatus(currentPage, outOf: response.info.pages)
-                    
-                    self.fetchAllCharactersLocal()
-                    pages = response.info.pages
-                    
-                    if currentPage < pages {
-                        currentPage += 1
-                        DispatchQueue.global().asyncAfter(deadline: .now() + delayBetweenPages) {
-                            fetchNextPage()
-                        }
-                    }
-                case .failure(let error):
-                    print("Failed to fetch Characters page \(currentPage): \(error)")
-                }
-            }
-        }
-        
-        fetchNextPage()
-    }
-    
     // MARK: - Private Methods 
     
     private func printUpdateStatus(_ currentPage: Int, outOf: Int) {

@@ -17,15 +17,15 @@ class CharacterLocalDataManager: CharacterLocalManagerProtocol {
 
     //MARK: - Public Methods
     
-    func fetchCharacters(completion: @escaping (Result<[CharacterLocal], LocalDataErrors>) -> Void) {
+    func fetchCharacters() throws -> [CharacterLocal] {
         let request = NSFetchRequest<CharacterLocal>(entityName: "CharacterLocal")
         let sortDescriptor = NSSortDescriptor(key: "id", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         do {
             let characters = try dataController.moc.fetch(request)
-            completion(.success(characters))
+            return characters
         } catch {
-            completion(.failure(.fetchError))
+            throw LocalDataErrors.fetchError
         }
     }
     
@@ -47,13 +47,12 @@ class CharacterLocalDataManager: CharacterLocalManagerProtocol {
     }
     
     func saveContext() {
-        if dataController.moc.hasChanges {
             do {
                 try dataController.moc.save()
             } catch {
                 print("Error saving data")
             }
-        }
+        
     }
     
     // MARK: - Private Methods

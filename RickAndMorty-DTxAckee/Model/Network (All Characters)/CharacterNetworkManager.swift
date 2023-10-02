@@ -17,26 +17,20 @@ class CharacterNetworkManager: CharacterNetworkManagerProtocol {
     
     //MARK: - Public Methods
     
-    func fetchCharactersPage(_ number: Int, completion: @escaping (Result<CharacterFetchModel, NetworkFetchErrors>) -> ()) {
-        guard let url = URL(string: baseURL+"?page="+String(number)) else {
-            completion(.failure(.urlError))
-            return
+    func fetchCharactersPage(_ number: Int) async throws -> CharacterFetchModel {
+        guard let url = URL(string: baseURL + "?page=" + String(number)) else {
+            throw NetworkFetchErrors.urlError
         }
         
-        networkService.fetchData(with: URLRequest(url: url)) { response in
-            DispatchQueue.main.async {
-            switch response {
-            case .success(let data):
-                print("success")
-                if let decoded = self.decodeCharacters(from: data) {
-                    completion(.success(decoded))
-                } else {
-                    completion(.failure(.decodingError))
-                }
-            case .failure(let error):
-                completion(.failure(error))
+        do {
+            let data = try await networkService.fetchData(from: url)
+            if let decoded = decodeCharacters(from: data) {
+                return decoded
+            } else {
+                throw NetworkFetchErrors.decodingError
             }
-            }
+        } catch {
+            throw error
         }
     }
     
@@ -44,8 +38,8 @@ class CharacterNetworkManager: CharacterNetworkManagerProtocol {
     
     private func decodeCharacters(from data: Data) -> CharacterFetchModel? {
         do {
-            let loaded = try JSONDecoder().decode(CharacterFetchModel.self, from: data)
-            return loaded
+            let decoded = try JSONDecoder().decode(CharacterFetchModel.self, from: data)
+            return decoded
         }
         catch {
             return nil

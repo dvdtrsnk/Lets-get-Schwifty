@@ -34,22 +34,35 @@ final class CharactersRepository_Tests: XCTestCase {
     
     // MARK: - Unit Tests
     
-//    func test_CharactersRepository_fetchAllCharactersLocal_ShouldPopulateCharacters() {
-//        // Given
-//        let amountOfTestSubjects = 10
-//
-//        let testCharacters = mockArrayCharactersLocal(amountOfTestSubjects)
-//        localManager.result = .success(testCharacters)
-//
-//        guard let sut = sut else { fatalError() }
-//
-//        // When
-//        sut.fetchAllCharactersLocal()
-//    
-//        // Then
-//        
-//        XCTAssertEqual(amountOfTestSubjects, sut.characters.count)
-//    }
+    func test_CharactersRepository_fetchAllCharactersLocal_ShouldPopulateCharacters() {
+        guard let sut = sut else { fatalError() }
+
+        // Given
+        let amountOfTestSubjects = 10
+        let testCharacters = mockArrayCharactersLocal(amountOfTestSubjects)
+        localManager.result = .success(testCharacters)
+
+        // When
+        sut.fetchAllCharactersLocal()
+    
+        // Then
+        XCTAssertEqual(amountOfTestSubjects, sut.characters.count)
+    }
+    
+    func test_CharactersRepository_fetchAllCharactersLocal_ShouldPopulateCharacters() {
+        guard let sut = sut else { fatalError() }
+
+        // Given
+        let amountOfTestSubjects = 10
+        let testCharacters = mockArrayCharactersLocal(amountOfTestSubjects)
+        localManager.result = .success(testCharacters)
+
+        // When
+        sut.fetchAllCharactersLocal()
+    
+        // Then
+        XCTAssertEqual(amountOfTestSubjects, sut.characters.count)
+    }
     
     
     

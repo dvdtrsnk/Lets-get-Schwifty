@@ -16,10 +16,14 @@ class MockCharacterNetworkManager: CharacterNetworkManagerProtocol {
     
     // MARK: - Public Method
     
-    func fetchCharactersPage(_ number: Int, completion: @escaping (Result<RickAndMorty_DTxAckee.CharacterFetchModel, RickAndMorty_DTxAckee.NetworkFetchErrors>) -> ()) {
-        
+    func fetchCharactersPage(_ number: Int) async throws -> RickAndMorty_DTxAckee.CharacterFetchModel {
         guard let result = result else { fatalError("Result is nil") }
         
-        return completion(result)
+        switch result {
+        case .success(let characters):
+            return characters
+        case .failure(let error):
+            throw error
+        }
     }
 }

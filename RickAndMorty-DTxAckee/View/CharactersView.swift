@@ -62,7 +62,9 @@ struct CharactersView: View {
             .tint(.foregroundsPrimary)
         }
         .onAppear {
-            vm.charactersRepository.updateAllCharactersNetworkToLocal()
+            Task {
+                await vm.charactersRepository.updateAllCharactersNetworkToLocal()
+            }
         }
     }
 }

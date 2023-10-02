@@ -26,10 +26,12 @@ class CharactersDetailViewModel: ObservableObject {
     
     // MARK: - Public Methods
     
-    func switchIsFavorite() {
+    func switchIsFavorite() async {
         character.isFavorite = !character.isFavorite
         isFavorite = character.isFavorite
         localDataManager.saveContext()
-        charactersRepository.fetchAllCharactersLocal()
+        
+        
+        await charactersRepository.fetchAllCharactersLocal()
     }
 }

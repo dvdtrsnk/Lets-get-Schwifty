@@ -8,5 +8,5 @@
 import Foundation
 
 protocol CharacterNetworkManagerProtocol {
-    func fetchCharactersPage(_ number: Int, completion: @escaping (Result<CharacterFetchModel, NetworkFetchErrors>) -> ())
+    func fetchCharactersPage(_ number: Int) async throws -> CharacterFetchModel
 }

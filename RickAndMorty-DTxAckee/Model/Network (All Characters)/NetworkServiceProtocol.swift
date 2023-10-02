@@ -8,5 +8,5 @@
 import Foundation
 
 protocol NetworkServiceProtocol {
-    func fetchData(with urlRequest: URLRequest, completion: @escaping (Result<Data, NetworkFetchErrors>) -> ())
+    func fetchData(from url: URL) async throws -> Data
 }

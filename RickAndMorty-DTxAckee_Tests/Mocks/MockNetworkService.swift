@@ -16,10 +16,17 @@ class MockNetworkService: NetworkServiceProtocol {
     
     // MARK: - func
 
-    func fetchData(with urlRequest: URLRequest, completion: @escaping (Result<Data, RickAndMorty_DTxAckee.NetworkFetchErrors>) -> ()) {
+    func fetchData(from url: URL) async throws -> Data {
         guard let result = result else {
             fatalError("Result is nil")
         }
-        return completion(result)
+        
+        switch result {
+        case .success(let data):
+            return data
+        case .failure(let error):
+            throw error
+            
+        }
     }
 }

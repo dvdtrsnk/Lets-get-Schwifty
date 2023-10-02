@@ -12,6 +12,6 @@ protocol CharactersRepositoryProtocol {
     
     var charactersPublisher: AnyPublisher<[CharacterLocal], Never> { get }
     
-    func fetchAllCharactersLocal()
-    func updateAllCharactersNetworkToLocal()
+    func fetchAllCharactersLocal() async
+    func updateAllCharactersNetworkToLocal() async
 }

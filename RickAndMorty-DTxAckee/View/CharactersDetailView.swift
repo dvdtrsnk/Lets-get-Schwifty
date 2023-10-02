@@ -49,7 +49,9 @@ struct CharactersDetailView: View {
                                 Spacer()
                                 
                                 Button {
-                                    vm.switchIsFavorite()
+                                    Task {
+                                        await vm.switchIsFavorite()
+                                    }
                                 } label: {
                                     Image(vm.isFavorite ? Image.StringName.favorites_Active : Image.StringName.favorites_Inactive)
                                         .resizable()

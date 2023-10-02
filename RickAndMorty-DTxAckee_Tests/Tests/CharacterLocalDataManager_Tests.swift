@@ -111,15 +111,11 @@ extension CharacterLocalDataManager_Tests {
     private func fetchCharacters() {
         guard let sut = sut else { fatalError() }
         
-        sut.fetchCharacters { result in
-            switch result {
-            case .success(let loaded):
-                self.characters = loaded
-            case .failure(let error):
-                print("error loading: \(error)")
-            }
+        do {
+            characters = try sut.fetchCharacters()
+        } catch {
+            print("Error loading characters: \(error)")
         }
-        
     }
     
     private func mockCharacterNetwork(inputId: Int, randomString: String) -> CharacterNetwork {

@@ -44,65 +44,50 @@ final class CharacterNetworkManager_Tests: XCTestCase {
         XCTAssertEqual(correctBaseUrl, setUrl) // Checks if SUT is using correct api url
     }
     
-    func test_CharacterNetworkManager_FetchCharactersPage_Success() {
+    func test_CharacterNetworkManager_FetchCharactersPage_Success() async {
         // Given
-        let expectation = XCTestExpectation(description: "Call a network async")
         let data = returnMockData()
         networkService.result = .success(data)
         
         var loadedData: CharacterFetchModel?
-        var loadedError: RickAndMorty_DTxAckee.NetworkFetchErrors?
+        var loadedError: Error?
         
         // When
         
-        sut?.fetchCharactersPage(1) { result in
-            switch result {
-            case .success(let data):
-                expectation.fulfill()
-                loadedData = data
-            case .failure(let error):
-                loadedError = error
-            }
-            
-            // Then
-            XCTAssertNil(loadedError) // Checks if inserted completion goes through
-            XCTAssertNotNil(loadedData)
-            
-            guard let loadedData = loadedData else { return }
-            XCTAssertEqual(loadedData.results.count, 1) // Checks if data Decode to CharacterLocal
+        do {
+            loadedData = try await sut?.fetchCharactersPage(1)
+        } catch {
+            loadedError = error
         }
         
-        wait(for: [expectation], timeout: 5.0)
+        
+        // Then
+        XCTAssertNil(loadedError) // Checks if inserted completion goes through
+        guard let loadedData = loadedData else { XCTAssertNotNil(loadedData) ; return }
+        XCTAssertEqual(loadedData.results.count, 1) // Checks if data Decode to CharacterLocal
     }
     
-    func test_CharacterNetworkManager_FetchCharactersPage_Failure() {
+    func test_CharacterNetworkManager_FetchCharactersPage_Failure() async {
         // Given
-        let expectation = XCTestExpectation(description: "Call a network async")
-
         let networkError = RickAndMorty_DTxAckee.NetworkFetchErrors.responseError
         networkService.result = .failure(networkError)
-        
+
         var loadedData: CharacterFetchModel?
         var loadedError: RickAndMorty_DTxAckee.NetworkFetchErrors?
-        
+
         // When
-        
-        sut?.fetchCharactersPage(1) { result in
-            switch result {
-            case .success(let data):
-                loadedData = data
-            case .failure(let error):
-                expectation.fulfill()
+        do {
+            loadedData = try await sut?.fetchCharactersPage(1)
+        } catch {
+            if let error = error as? RickAndMorty_DTxAckee.NetworkFetchErrors {
                 loadedError = error
+            } else {
+                loadedError = .unknownError
             }
-            
-            
-            // Then
-            XCTAssertNil(loadedData)
-            XCTAssertEqual(networkError, loadedError) // Checks if inserted error goes through in case of failure
         }
         
-        wait(for: [expectation], timeout: 5.0)
+        XCTAssertNil(loadedData)
+        XCTAssertEqual(networkError, loadedError) // Checks if inserted error goes through in case of failure
     }
 }
 
