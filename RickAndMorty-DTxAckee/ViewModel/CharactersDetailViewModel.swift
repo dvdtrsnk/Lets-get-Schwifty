@@ -12,7 +12,7 @@ class CharactersDetailViewModel: ObservableObject {
     
     
     // MARK: - Properties
-    @Injected var localDataManager: LocalDataManagerProtocol
+    @Injected var localDataManager: CharacterLocalManagerProtocol
     @Injected var charactersRepository: CharactersRepositoryProtocol
     @Published var character: CharacterLocal
     @Published var isFavorite: Bool
@@ -26,10 +26,15 @@ class CharactersDetailViewModel: ObservableObject {
     
     // MARK: - Public Methods
     
-    func switchIsFavorite() {
+    func switchIsFavorite() async {
+        DispatchQueue.main.async {
+            self.isFavorite = self.character.isFavorite
+        }
+        
         character.isFavorite = !character.isFavorite
-        isFavorite = character.isFavorite
         localDataManager.saveContext()
-        charactersRepository.fetchAllCharactersLocal()
+        
+        
+        await charactersRepository.fetchAllCharactersLocal()
     }
 }

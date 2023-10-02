@@ -14,6 +14,7 @@ enum NetworkFetchErrors: Error {
     case dataError
     case urlError
     case responseError
+    case unknownError
 
     var localizedDescription: String {
         switch self {
@@ -25,6 +26,8 @@ enum NetworkFetchErrors: Error {
             return "URL error"
         case .responseError:
             return "Response error"
+        case .unknownError:
+            return "Unknown error"
         }
     }
 }

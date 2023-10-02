@@ -7,8 +7,8 @@
 
 import Foundation
 
-protocol LocalDataManagerProtocol {
-    func fetchCharacters(completion: @escaping (Result<[CharacterLocal], LocalDataErrors>) -> Void)
+protocol CharacterLocalManagerProtocol {
+    func fetchCharacters() throws -> [CharacterLocal]
     func updateOrCreateLocalCharacterUsing(characterNetwork: CharacterNetwork, charactersLocal: [CharacterLocal])
     func saveContext()
 }

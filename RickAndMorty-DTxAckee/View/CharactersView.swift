@@ -61,6 +61,11 @@ struct CharactersView: View {
             .navigationViewStyle(StackNavigationViewStyle())
             .tint(.foregroundsPrimary)
         }
+        .onAppear {
+            Task {
+                await vm.charactersRepository.updateAllCharactersNetworkToLocal()
+            }
+        }
     }
 }
 

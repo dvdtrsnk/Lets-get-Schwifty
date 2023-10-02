@@ -49,7 +49,9 @@ struct CharactersDetailView: View {
                                 Spacer()
                                 
                                 Button {
-                                    vm.switchIsFavorite()
+                                    Task {
+                                        await vm.switchIsFavorite()
+                                    }
                                 } label: {
                                     Image(vm.isFavorite ? Image.StringName.favorites_Active : Image.StringName.favorites_Inactive)
                                         .resizable()
@@ -88,6 +90,7 @@ struct CharactersDetailView: View {
                 .shadow(color: .black.opacity(0.2), radius: 16)
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarTitleDisplayMode(.inline)
     }
 }
