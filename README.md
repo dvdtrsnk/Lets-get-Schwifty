@@ -24,3 +24,6 @@ Due to the extensive nature of the API, data is fetched and updated in small tim
 - [Resolver](https://github.com/hmlongco/Resolver): Dependency injection library used to manage dependencies.
 
 - ["SwiftUI Cached async image"](https://github.com/lorenzofiamingo/swiftui-cached-async-image): A utility for cached image loading in SwiftUI.
+
+![Graphviz](https://github.com/dvdtrsnk/Lets-get-Schwifty/blob/main/graphviz.png)
+
