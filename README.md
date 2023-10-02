@@ -25,5 +25,8 @@ Due to the extensive nature of the API, data is fetched and updated in small tim
 
 - ["SwiftUI Cached async image"](https://github.com/lorenzofiamingo/swiftui-cached-async-image): A utility for cached image loading in SwiftUI.
 
+
+## Graph of Function 
+
 ![Graphviz](https://github.com/dvdtrsnk/Lets-get-Schwifty/blob/main/graphviz.png)
 
