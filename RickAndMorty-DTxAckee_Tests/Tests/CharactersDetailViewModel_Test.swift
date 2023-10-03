@@ -35,14 +35,22 @@ final class CharactersDetailViewModel_Test: XCTestCase {
 
     func test_CharactersDetailViewModel_SwitchIsFavorite() async {
         guard let sut = sut else { fatalError("sut is nil") }
+        let expectation = XCTestExpectation(description: "Switch is Favorite")
+        
         // Given
         
         // When
         await sut.switchIsFavorite()
         
         // Then
-        XCTAssertTrue(sut.character.isFavorite)
-        XCTAssertTrue(sut.isFavorite)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssertTrue(sut.character.isFavorite)
+            XCTAssertTrue(sut.isFavorite)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
     }
 }
 
