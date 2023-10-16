@@ -53,7 +53,7 @@ struct CharactersDetailView: View {
                                         await vm.switchIsFavorite()
                                     }
                                 } label: {
-                                    Image(vm.isFavorite ? Image.StringName.favorites_Active : Image.StringName.favorites_Inactive)
+                                    Image(vm.isFavorite ? Image.StringName.favoritesActive : Image.StringName.favoritesInactive)
                                         .resizable()
                                         .scaledToFit()
                                         .colorMultiply(.iconsTertiary)

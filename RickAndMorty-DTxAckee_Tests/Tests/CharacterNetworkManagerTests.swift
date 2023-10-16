@@ -9,7 +9,7 @@ import XCTest
 import Resolver
 @testable import RickAndMorty_DTxAckee
 
-final class CharacterNetworkManager_Tests: XCTestCase {
+final class CharacterNetworkManagerTests: XCTestCase {
     
     // MARK: - Properties
     @LazyInjected var networkService: MockNetworkService
@@ -94,10 +94,19 @@ final class CharacterNetworkManager_Tests: XCTestCase {
 
 // MARK: - Helper Functions
 
-extension CharacterNetworkManager_Tests {
+extension CharacterNetworkManagerTests {
     
     private func mockCharacter() -> [CharacterNetwork] {
-   [CharacterNetwork(id: 1, name: "", status: "", species: "", type: "", gender: "", origin: OriginOrLocation(name: "", url: ""), location: OriginOrLocation(name: "", url: ""), image: "", url: "", created: "")]
+   [CharacterNetwork(
+    id: 1, name: "",
+    status: "",
+    species: "",
+    type: "", gender: "",
+    origin: OriginOrLocation(name: "", url: ""),
+    location: OriginOrLocation(name: "", url: ""),
+    image: "",
+    url: "",
+    created: "")]
     }
 
   private func returnMockData() -> Data {

@@ -10,7 +10,7 @@ import Resolver
 import CoreData
 @testable import RickAndMorty_DTxAckee
 
-final class CharacterLocalDataManager_Tests: XCTestCase {
+final class CharacterLocalDataManagerTests: XCTestCase {
     
     @LazyInjected var dataController: MockDataController
     var sut: CharacterLocalDataManager?
@@ -38,8 +38,8 @@ final class CharacterLocalDataManager_Tests: XCTestCase {
         // Given
         let createAmountOfCharacters: Int = 10
 
-        for n in 1...10 {
-            sut?.updateOrCreateLocalCharacterUsing(characterNetwork: mockCharacterNetwork(inputId: n, randomString: UUID().uuidString), charactersLocal: characters)
+        for characterNumber in 1...10 {
+            sut?.updateOrCreateLocalCharacterUsing(characterNetwork: mockCharacterNetwork(inputId: characterNumber, randomString: UUID().uuidString), charactersLocal: characters)
             fetchCharacters()
         }
 
@@ -62,13 +62,13 @@ final class CharacterLocalDataManager_Tests: XCTestCase {
         guard let sut = sut else { return }
         
         // When
-        for n in 1...createAmountOfCharacters {
-            sut.updateOrCreateLocalCharacterUsing(characterNetwork: mockCharacterNetwork(inputId: n, randomString: randomStringFirstRound), charactersLocal: characters)
+        for characterNumber in 1...createAmountOfCharacters {
+            sut.updateOrCreateLocalCharacterUsing(characterNetwork: mockCharacterNetwork(inputId: characterNumber, randomString: randomStringFirstRound), charactersLocal: characters)
             fetchCharacters()
         }
         
-        for n in 1...createAmountOfCharacters {
-            sut.updateOrCreateLocalCharacterUsing(characterNetwork: mockCharacterNetwork(inputId: n, randomString: randomStringSecondRound), charactersLocal: characters)
+        for characterNumber in 1...createAmountOfCharacters {
+            sut.updateOrCreateLocalCharacterUsing(characterNetwork: mockCharacterNetwork(inputId: characterNumber, randomString: randomStringSecondRound), charactersLocal: characters)
             fetchCharacters()
         }
         
@@ -98,7 +98,7 @@ final class CharacterLocalDataManager_Tests: XCTestCase {
 
 // MARK: - Helper Private Methods
 
-extension CharacterLocalDataManager_Tests {
+extension CharacterLocalDataManagerTests {
     
     private func deleteExistingCharactersLocal() {
         fetchCharacters()

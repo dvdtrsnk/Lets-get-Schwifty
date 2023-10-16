@@ -9,7 +9,7 @@ import XCTest
 import Resolver
 @testable import RickAndMorty_DTxAckee
 
-final class CharactersDetailViewModel_Test: XCTestCase {
+final class CharactersDetailViewModelTest: XCTestCase {
 
     @LazyInjected var charactersRepository: MockCharactersRepository
     @LazyInjected var dataController: MockDataController
@@ -57,7 +57,7 @@ final class CharactersDetailViewModel_Test: XCTestCase {
 
 // MARK: - Helper Private Methods
 
-extension CharactersDetailViewModel_Test {
+extension CharactersDetailViewModelTest {
     
     private func returnMockCharacterLocal() -> CharacterLocal {
         let character = CharacterLocal(context: dataController.moc)

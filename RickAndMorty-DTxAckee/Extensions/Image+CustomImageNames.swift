@@ -9,19 +9,19 @@ import SwiftUI
 
 extension Image {
     struct StringName {
-        static var tabBar_allCharacters: String {
+        static var tabBarAllCharacters: String {
             return "tabBar_allCharacters"
         }
         
-        static var tabBar_favoriteCharacters: String {
+        static var tabBarFavoriteCharacters: String {
             return "tabBar_favoriteCharacters"
         }
         
-        static var favorites_Active: String {
+        static var favoritesActive: String {
             return "favorites_Active"
         }
         
-        static var favorites_Inactive: String {
+        static var favoritesInactive: String {
             return "favorites_Inactive"
         }
     }

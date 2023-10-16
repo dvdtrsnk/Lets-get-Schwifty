@@ -45,7 +45,7 @@ struct CharacterCardView: View {
                     
                     VStack {
                         if vm.character.isFavorite {
-                            Image(Image.StringName.favorites_Active)
+                            Image(Image.StringName.favoritesActive)
                                 .resizable()
                                 .colorMultiply(.iconsTertiary)
                                 .scaledToFit()
@@ -59,7 +59,7 @@ struct CharacterCardView: View {
                 Text(vm.character.status)
                     .foregroundColor(.gray)
                     .onTapGesture {
-                        print(Image.StringName.favorites_Active)
+                        print(Image.StringName.favoritesActive)
                     }
             }
             .padding(.vertical, 8)

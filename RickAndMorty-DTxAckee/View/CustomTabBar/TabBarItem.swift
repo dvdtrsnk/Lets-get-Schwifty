@@ -14,9 +14,9 @@ enum TabBarItem {
     var iconName: String{
         switch self {
         case .allCharacters:
-            return Image.StringName.tabBar_allCharacters
+            return Image.StringName.tabBarAllCharacters
         case .favouriteCharacters:
-            return Image.StringName.tabBar_favoriteCharacters
+            return Image.StringName.tabBarFavoriteCharacters
         }
     }
 }

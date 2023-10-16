@@ -9,7 +9,7 @@ import XCTest
 import Resolver
 @testable import RickAndMorty_DTxAckee
 
-final class FavoriteCharactersViewModel_Test: XCTestCase {
+final class FavoriteCharactersViewModelTest: XCTestCase {
 
     @LazyInjected var charactersRepository: MockCharactersRepository
     @LazyInjected var dataController: MockDataController
@@ -86,7 +86,7 @@ final class FavoriteCharactersViewModel_Test: XCTestCase {
 
 // MARK: - Helper Private Methods
 
-extension FavoriteCharactersViewModel_Test {
+extension FavoriteCharactersViewModelTest {
     
     private func markCharactersFavorite(amount: Int) {
         let charactersCount = charactersRepository.characters.count

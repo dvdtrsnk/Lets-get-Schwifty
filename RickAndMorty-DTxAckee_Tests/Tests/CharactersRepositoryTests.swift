@@ -9,7 +9,7 @@ import XCTest
 import Resolver
 @testable import RickAndMorty_DTxAckee
 
-final class CharactersRepository_Tests: XCTestCase {
+final class CharactersRepositoryTests: XCTestCase {
 
     @LazyInjected var dataController: MockDataController
     @LazyInjected var networkManager: MockCharacterNetworkManager
@@ -68,7 +68,7 @@ final class CharactersRepository_Tests: XCTestCase {
 
 // MARK: - Helper Private Methods
 
-extension CharactersRepository_Tests {
+extension CharactersRepositoryTests {
     
     private func mockCharacterPage(charactersOnPage: Int) -> CharacterFetchModel {
         return CharacterFetchModel(info: Info(count: 800, pages: 1), results: mockCharactersNetworkArray(amount: charactersOnPage))
@@ -78,7 +78,17 @@ extension CharactersRepository_Tests {
         var arrayToReturn: [CharacterNetwork] = []
          
         for _ in 1...amount {
-            arrayToReturn.append(contentsOf: [CharacterNetwork(id: Int16.random(in: 1...9999), name: "", status: "", species: "", type: "", gender: "", origin: OriginOrLocation(name: "", url: ""), location: OriginOrLocation(name: "", url: ""), image: "", url: "", created: "")])
+            arrayToReturn.append(contentsOf: 
+                                    [CharacterNetwork(
+                                        id: Int16.random(in: 1...9999),
+                                        name: "", status: "",
+                                        species: "", type: "",
+                                        gender: "",
+                                        origin: OriginOrLocation(name: "", url: ""),
+                                        location: OriginOrLocation(name: "", url: ""),
+                                        image: "",
+                                        url: "",
+                                        created: "")])
         }
         return arrayToReturn
     }
