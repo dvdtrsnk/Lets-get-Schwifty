@@ -8,26 +8,21 @@
 import SwiftUI
 import Resolver
 
-struct CustomTabBarContainerView<Content:View>: View {
-    
-    //MARK: - Properties
-    @StateObject var vm: CustomTabBarViewModel = Resolver.resolve()
+struct CustomTabBarContainerView<Content: View>: View {
+    // MARK: - Properties
+    @StateObject var viewModel: CustomTabBarViewModel = Resolver.resolve()
     let content: Content
-    
-    //MARK: - Init
-    
+    // MARK: - Init
     init(@ViewBuilder content: () -> Content ) {
         self.content = content()
     }
-    
-    //MARK: - Body
+    // MARK: - Body
     var body: some View {
         VStack(spacing: 0) {
             ZStack(alignment: .bottom) {
                 content
                     .ignoresSafeArea(edges: .bottom)
-    
-                if !vm.isHidden {
+                if !viewModel.isHidden {
                     CustomTabBarView()
                         .padding(.bottom)
                 }
@@ -35,15 +30,15 @@ struct CustomTabBarContainerView<Content:View>: View {
             }
         }
         .onPreferenceChange(TabBarItemsPreferenceKey.self) { value in
-            vm.tabs = value
+            viewModel.tabs = value
         }
     }
 }
 
-
+// MARK: - Preview
 struct CustomTabBarContainerView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomTabBarContainerView() {
+        CustomTabBarContainerView {
             Color.red
         }
     }

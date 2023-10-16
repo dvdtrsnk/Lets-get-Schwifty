@@ -9,13 +9,10 @@ import SwiftUI
 import Resolver
 
 struct CharactersView: View {
-    
     // MARK: - Properties
-    
     @State var navigationTitle = "Characters"
-    @StateObject var vm: CharactersViewModel = Resolver.resolve()
+    @StateObject var viewModel: CharactersViewModel = Resolver.resolve()
     @Injected var customTabBarViewModel: CustomTabBarViewModel
-
 
     // MARK: - Body 
     var body: some View {
@@ -26,7 +23,7 @@ struct CharactersView: View {
             NavigationView {
                 ScrollView {
                     LazyVStack {
-                        ForEach(vm.charactersFiltered, id: \.id) { character in
+                        ForEach(viewModel.charactersFiltered, id: \.id) { character in
                             NavigationLink {
                                 CharactersDetailView(for: character)
                                     .onAppear {
@@ -50,7 +47,7 @@ struct CharactersView: View {
                     }
                 }
                 .navigationTitle(navigationTitle)
-                .searchable(text: $vm.searchField, prompt: "Search character")
+                .searchable(text: $viewModel.searchField, prompt: "Search character")
                 .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
                     customTabBarViewModel.isHidden = true
                 }
@@ -63,7 +60,7 @@ struct CharactersView: View {
         }
         .onAppear {
             Task {
-                await vm.charactersRepository.updateAllCharactersNetworkToLocal()
+                await viewModel.charactersRepository.updateAllCharactersNetworkToLocal()
             }
         }
     }

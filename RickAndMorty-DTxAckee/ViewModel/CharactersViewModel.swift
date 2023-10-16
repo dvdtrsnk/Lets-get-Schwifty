@@ -10,9 +10,7 @@ import Combine
 import Resolver
 
 class CharactersViewModel: ObservableObject {
-    
-    //MARK: - Properties
-    
+    // MARK: - Properties
     @Injected var charactersRepository: CharactersRepositoryProtocol
     private var cancellables: Set<AnyCancellable> = []
 
@@ -28,17 +26,14 @@ class CharactersViewModel: ObservableObject {
     }
     @Published var charactersFiltered: [CharacterLocal] = []
 
-    //MARK: - Init
-    
+    // MARK: - Init
     init() {
         charactersRepository.charactersPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: \.characters, on: self)
             .store(in: &cancellables)
     }
-    
-    //MARK: - Private Methods
-    
+    // MARK: - Private Methods
     private func filterCharacters() {
         if searchField.isEmpty {
             charactersFiltered = characters
@@ -46,7 +41,6 @@ class CharactersViewModel: ObservableObject {
             DispatchQueue.global().async { [weak self] in
                 guard let self = self else { return }
                 let filteredCharacters = self.characters.filter { $0.name.contains(self.searchField) }
-                
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     self.charactersFiltered = filteredCharacters

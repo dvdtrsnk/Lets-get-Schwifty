@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension CharacterLocal {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CharacterLocal> {
@@ -30,6 +29,5 @@ extension CharacterLocal {
 
 }
 
-extension CharacterLocal : Identifiable {
-
+extension CharacterLocal: Identifiable {
 }

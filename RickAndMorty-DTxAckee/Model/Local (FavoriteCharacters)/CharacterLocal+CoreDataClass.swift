@@ -11,5 +11,4 @@ import CoreData
 
 @objc(CharacterLocal)
 public class CharacterLocal: NSManagedObject {
-
 }

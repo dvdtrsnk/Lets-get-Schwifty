@@ -12,7 +12,6 @@ import Resolver
 extension Resolver {
     // MARK: - Mock Container
     static var mock = Resolver(child: .main)
-    
     // MARK: - Register Mock Services
     static func registerMockServices() {
         Resolver.root = Resolver.mock
@@ -22,7 +21,5 @@ extension Resolver {
         Resolver.mock.register { MockCharactersRepository() }.implements(CharactersRepositoryProtocol.self)
         Resolver.mock.register { MockCharacterLocalManager() }.implements(CharacterLocalManagerProtocol.self)
         Resolver.mock.register { MockCharacterNetworkManager() }.implements(CharacterNetworkManagerProtocol.self)
-
     }
 }
-

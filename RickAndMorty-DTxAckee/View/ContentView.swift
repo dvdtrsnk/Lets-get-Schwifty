@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    
         // MARK: - Body
-    
     var body: some View {
         VStack {
-            CustomTabBarContainerView() {
+            CustomTabBarContainerView {
                 CharactersView()
                     .tabBarItem(tab: .allCharacters)
                 FavoriteCharactersView()
@@ -23,6 +21,7 @@ struct ContentView: View {
     }
 }
 
+// MARK: - Preview
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

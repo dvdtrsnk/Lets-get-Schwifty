@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension FavoriteCharacter {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<FavoriteCharacter> {
@@ -21,6 +20,5 @@ extension FavoriteCharacter {
 
 }
 
-extension FavoriteCharacter : Identifiable {
-
+extension FavoriteCharacter: Identifiable {
 }

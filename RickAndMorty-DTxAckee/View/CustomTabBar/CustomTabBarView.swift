@@ -9,16 +9,13 @@ import SwiftUI
 import Resolver
 
 struct CustomTabBarView: View {
-    
-    //MARK: - Properties
-    
-    @StateObject var vm: CustomTabBarViewModel = Resolver.resolve()
-    
-    //MARK: - Body
+    // MARK: - Properties
+    @StateObject var viewModel: CustomTabBarViewModel = Resolver.resolve()
+    // MARK: - Body
 
     var body: some View {
         HStack {
-            ForEach(vm.tabs, id: \.self) { tab in
+            ForEach(viewModel.tabs, id: \.self) { tab in
                 tabView(tab: tab)
                     .onTapGesture {
                         switchToTab(tab)
@@ -31,12 +28,10 @@ struct CustomTabBarView: View {
         .clipShape(Capsule())
         .shadow(color: .black.opacity(0.2), radius: 15)
     }
-    
-    //MARK: - Private Methods
-
+    // MARK: - Private Methods
     private func switchToTab(_ tab: TabBarItem) {
         withAnimation(.easeInOut) {
-            vm.selection = tab
+            viewModel.selection = tab
         }
 
     }
@@ -48,7 +43,7 @@ struct CustomTabBarView_Previews: PreviewProvider {
     }
 }
 
-//MARK: - CustomTabBarItem UI
+// MARK: - CustomTabBarItem UI
 
 extension CustomTabBarView {
     private func tabView(tab: TabBarItem) -> some View {
@@ -58,7 +53,7 @@ extension CustomTabBarView {
                 .scaledToFit()
                 .frame(maxWidth: 35, maxHeight: 35)
         }
-        .colorMultiply(vm.selection == tab ? Color.iconsTertiary : Color.iconsSecondary)
+        .colorMultiply(viewModel.selection == tab ? Color.iconsTertiary : Color.iconsSecondary)
         .padding(.vertical, 10)
         .cornerRadius(10)
     }

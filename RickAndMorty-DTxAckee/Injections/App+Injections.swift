@@ -4,14 +4,12 @@
 //
 //  Created by David Tresnak
 
-
 import Foundation
 import Resolver
 
 extension Resolver: ResolverRegistering {
     public static func registerAllServices() {
         defaultScope = .graph
-        
         // MARK: - Data
         register { NetworkService() }.implements(NetworkServiceProtocol.self)
         register { CharacterNetworkManager() }.implements(CharacterNetworkManagerProtocol.self)
@@ -19,7 +17,6 @@ extension Resolver: ResolverRegistering {
         register { CharacterLocalDataManager() }.implements(CharacterLocalManagerProtocol.self)
         register { CharactersRepository() }.implements(CharactersRepositoryProtocol.self)
             .scope(.application)
-        
         // MARK: - ViewModels
         register { CustomTabBarViewModel() }
             .scope(.application)
@@ -31,6 +28,5 @@ extension Resolver: ResolverRegistering {
         register { _, args in
             CharacterCardViewModel(args())
         }
-        
     }
 }

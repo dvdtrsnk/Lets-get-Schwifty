@@ -9,9 +9,10 @@ import Foundation
 import SwiftUI
 
 enum TabBarItem {
-    case allCharacters, favouriteCharacters
-    
-    var iconName: String{
+    case allCharacters
+    case favouriteCharacters
+
+    var iconName: String {
         switch self {
         case .allCharacters:
             return Image.StringName.tabBarAllCharacters

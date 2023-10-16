@@ -9,21 +9,17 @@ import SwiftUI
 import Resolver
 
 struct FavoriteCharactersView: View {
-    
     // MARK: - Properties
-    
-    @StateObject var vm: FavoriteCharactersViewModel = Resolver.resolve()
+    @StateObject var viewModel: FavoriteCharactersViewModel = Resolver.resolve()
     @Injected var customTabBarViewModel: CustomTabBarViewModel
-    
     @State private var navigationTitle = "Favorites"
 
-    // MARK: - Body 
-    
+    // MARK: - Body
     var body: some View {
         NavigationView {
             ScrollView {
                 LazyVStack {
-                    ForEach(vm.favoriteCharacters, id: \.id) { character in
+                    ForEach(viewModel.favoriteCharacters, id: \.id) { character in
                         NavigationLink {
                             CharactersDetailView(for: character)
                                 .onAppear {
@@ -52,6 +48,8 @@ struct FavoriteCharactersView: View {
         .tint(.foregroundsPrimary)
     }
 }
+
+// MARK: - Preview
 
 struct FavoriteCharactersView_Previews: PreviewProvider {
     static var previews: some View {

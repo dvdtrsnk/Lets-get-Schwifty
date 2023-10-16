@@ -10,13 +10,10 @@ import Resolver
 import CoreData
 
 class CharacterLocalDataManager: CharacterLocalManagerProtocol {
-    
-    //MARK: - Properties
-    
+    // MARK: - Properties
     @Injected var dataController: DataControllerProtocol
 
-    //MARK: - Public Methods
-    
+    // MARK: - Public Methods
     func fetchCharacters() throws -> [CharacterLocal] {
         let request = NSFetchRequest<CharacterLocal>(entityName: "CharacterLocal")
         let sortDescriptor = NSSortDescriptor(key: "id", ascending: true)
@@ -28,9 +25,7 @@ class CharacterLocalDataManager: CharacterLocalManagerProtocol {
             throw LocalDataErrors.fetchError
         }
     }
-    
     func updateOrCreateLocalCharacterUsing(characterNetwork: CharacterNetwork, charactersLocal: [CharacterLocal]) {
-                
         let localCharacter = loadOrCreate(characterNetwork, in: charactersLocal)
         localCharacter.id = characterNetwork.id
         localCharacter.name = characterNetwork.name
@@ -42,21 +37,16 @@ class CharacterLocalDataManager: CharacterLocalManagerProtocol {
         localCharacter.locationName = characterNetwork.location.name
         localCharacter.imageUrl = characterNetwork.image
         localCharacter.url = characterNetwork.url
-        
         saveContext()
     }
-    
     func saveContext() {
             do {
                 try dataController.moc.save()
             } catch {
                 print("Error saving data")
             }
-        
     }
-    
     // MARK: - Private Methods
-    
     private func loadOrCreate(_ character: CharacterNetwork, in charactersLocal: [CharacterLocal]) -> CharacterLocal {
         if let existingLocalCharacter = charactersLocal.first(where: { $0.id == character.id }) {
             return existingLocalCharacter

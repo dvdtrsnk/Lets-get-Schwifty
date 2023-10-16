@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum NetworkFetchErrors: Error {
 
     case decodingError

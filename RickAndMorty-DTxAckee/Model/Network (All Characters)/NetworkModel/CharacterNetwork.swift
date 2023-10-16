@@ -20,5 +20,3 @@ struct CharacterNetwork: Codable {
     var url: String
     var created: String
 }
-
-

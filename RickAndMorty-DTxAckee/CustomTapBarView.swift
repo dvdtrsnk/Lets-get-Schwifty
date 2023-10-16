@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct TapBarView: View {
-    
     let tabs: [TapBarItem]
-    
     var body: some View {
         HStack {
             ForEach(tabs, id: \.self) { tab in
@@ -35,7 +33,6 @@ struct CustomTapBarView_Previews: PreviewProvider {
 }
 
 extension TapBarView {
-    
     private func tabView(tab: TapBarItem) -> some View {
         VStack {
             Image(systemName: tab.iconName)

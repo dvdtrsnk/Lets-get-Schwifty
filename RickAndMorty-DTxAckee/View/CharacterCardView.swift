@@ -10,20 +10,16 @@ import CachedAsyncImage
 import Resolver
 
 struct CharacterCardView: View {
-    
     // MARK: - Properties
-    
-    @StateObject var vm: CharacterCardViewModel
-    
+    @StateObject var viewModel: CharacterCardViewModel
     // MARK: - Init
     init(for character: CharacterLocal) {
-        _vm = StateObject(wrappedValue: Resolver.resolve(args: character))
+        _viewModel = StateObject(wrappedValue: Resolver.resolve(args: character))
     }
-    
     // MARK: - Body
     var body: some View {
         HStack(alignment: .top) {
-            CachedAsyncImage(url: URL(string:vm.character.imageUrl)) { image in
+            CachedAsyncImage(url: URL(string: viewModel.character.imageUrl)) { image in
                 image
                     .resizable()
                     .frame(maxWidth: 50, maxHeight: 50)
@@ -35,16 +31,14 @@ struct CharacterCardView: View {
                     .overlay(ProgressView())
                     .padding(8)
             }
-            
             VStack(alignment: .leading) {
                 HStack {
-                    Text(vm.character.name)
+                    Text(viewModel.character.name)
                         .font(.headline)
                         .lineLimit(4)
                         .multilineTextAlignment(.leading)
-                    
                     VStack {
-                        if vm.character.isFavorite {
+                        if viewModel.character.isFavorite {
                             Image(Image.StringName.favoritesActive)
                                 .resizable()
                                 .colorMultiply(.iconsTertiary)
@@ -55,18 +49,15 @@ struct CharacterCardView: View {
                         }
                     }
                 }
-                
-                Text(vm.character.status)
+                Text(viewModel.character.status)
                     .foregroundColor(.gray)
                     .onTapGesture {
                         print(Image.StringName.favoritesActive)
                     }
             }
             .padding(.vertical, 8)
-            
             Spacer()
-            
-            VStack{
+            VStack {
                 Spacer()
                 Image(systemName: "chevron.right")
                     .padding(16)
@@ -80,10 +71,3 @@ struct CharacterCardView: View {
         .shadow(color: .black.opacity(0.15), radius: 16)
     }
 }
-
-//struct CharacterCardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let character: Character = Bundle.main.decodeCharacters("mockDataLocal.json").first!
-//        CharacterCardView(for: character)
-//    }
-//}
