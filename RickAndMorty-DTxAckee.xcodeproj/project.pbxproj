@@ -368,6 +368,7 @@
 			buildConfigurationList = 631D05332AC6DE4F006B6BAF /* Build configuration list for PBXNativeTarget "RickAndMorty-DTxAckee_Tests" */;
 			buildPhases = (
 				631D05292AC6DE4F006B6BAF /* Sources */,
+				63C3AE282ADE55A50032B5FE /* Run SwiftLint */,
 				631D052A2AC6DE4F006B6BAF /* Frameworks */,
 				631D052B2AC6DE4F006B6BAF /* Resources */,
 			);
@@ -453,6 +454,24 @@
 			inputPaths = (
 			);
 			name = "Run SwintLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		63C3AE282ADE55A50032B5FE /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
 			outputFileListPaths = (
 			);
 			outputPaths = (

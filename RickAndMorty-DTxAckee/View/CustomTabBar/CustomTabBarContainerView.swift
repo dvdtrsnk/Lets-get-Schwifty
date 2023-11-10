@@ -26,7 +26,6 @@ struct CustomTabBarContainerView<Content: View>: View {
                     CustomTabBarView()
                         .padding(.bottom)
                 }
-
             }
         }
         .onPreferenceChange(TabBarItemsPreferenceKey.self) { value in

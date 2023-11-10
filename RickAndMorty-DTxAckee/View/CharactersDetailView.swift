@@ -21,42 +21,9 @@ struct CharactersDetailView: View {
             ScrollView {
                 VStack {
                     HStack {
-                        AsyncImage(url: URL(string: viewModel.character.imageUrl)) { image in
-                            image
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 140, height: 140, alignment: .topLeading)
-                                .cornerRadius(10)
-                        } placeholder: {
-                            Color.clear
-                                .frame(width: 140, height: 140, alignment: .topLeading)
-                                .overlay(ProgressView())
-                        }
+                        charactersImage
                         Spacer()
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Text("Name")
-                                Spacer()
-                                Button {
-                                    Task {
-                                        await viewModel.switchIsFavorite()
-                                    }
-                                } label: {
-                                    Image(viewModel.isFavorite ?
-                                          Image.StringName.favoritesActive : Image.StringName.favoritesInactive)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .colorMultiply(.iconsTertiary)
-                                        .frame(width: 32, height: 32)
-                                }
-                            }
-                            Text(viewModel.character.name)
-                                .lineLimit(3)
-                                .padding(.top, 8)
-                                .font(.headline)
-                            Spacer()
-                        }
-                        .padding(.leading, 16)
+                        charactersDetail
                         Spacer()
                     }
                     .padding(16)
@@ -81,7 +48,7 @@ struct CharactersDetailView: View {
     }
 }
 
-// MARK: - DescriptionLine View
+// MARK: - Body Components
 
 extension CharactersDetailView {
     private func descriptionLine(category: String, info: String) -> some View {
@@ -97,5 +64,44 @@ extension CharactersDetailView {
             Spacer()
         }
         .padding([.bottom, .horizontal], 24)
+    }
+    private var charactersImage: some View {
+        AsyncImage(url: URL(string: viewModel.character.imageUrl)) { image in
+            image
+                .resizable()
+                .scaledToFit()
+                .frame(width: 140, height: 140, alignment: .topLeading)
+                .cornerRadius(10)
+        } placeholder: {
+            Color.clear
+                .frame(width: 140, height: 140, alignment: .topLeading)
+                .overlay(ProgressView())
+        }
+    }
+    private var charactersDetail: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text("Name")
+                Spacer()
+                Button {
+                    Task {
+                        await viewModel.switchIsFavorite()
+                    }
+                } label: {
+                    Image(viewModel.isFavorite ?
+                          Image.StringName.favoritesActive : Image.StringName.favoritesInactive)
+                        .resizable()
+                        .scaledToFit()
+                        .colorMultiply(.iconsTertiary)
+                        .frame(width: 32, height: 32)
+                }
+            }
+            Text(viewModel.character.name)
+                .lineLimit(3)
+                .padding(.top, 8)
+                .font(.headline)
+            Spacer()
+        }
+        .padding(.leading, 16)
     }
 }
